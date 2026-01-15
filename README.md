@@ -1,6 +1,6 @@
-## **<center> name: Papaprokopiou Panagiotis **
+## **<center> name: Papaprokopiou Panagiotis**
 ## **<center> Academic Transcript**: 11033
-## **<center> mail: papaprokp@ece.auth.gr **
+## **<center> mail: papaprokp@ece.auth.gr**
 
 
 
