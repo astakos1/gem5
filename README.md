@@ -40,12 +40,12 @@ In the first part it is asked to run the _"./build/ARM/gem5.opt -d hello_result 
 
 from the config.ini we confirm that
 * it is a single core cpu (cpu_id=0)
-* memory is 2Gb (mem_ranges=0:2147483647)
-* L1 Instruction Cache is 48Kb 3 way set associative (addr_ranges=0:18446744073709551615
+* memory is 2Gb ()
+* L1 Instruction Cache is 48Kb 3 way set associative (system.cpu_cluster.cpus.icache -> size 49152
 assoc=3)
-* L1 Data Cache is 32Kb 2 way set associative (addr_ranges=0:18446744073709551615
+* L1 Data Cache is 32Kb 2 way set associative (system.cpu_cluster.cpus.dcache -> size 32768
 assoc=2)
-* L2 Cache is 1Mb 16 way set associative (addr_ranges=0:18446744073709551615
+* L2 Cache is 1Mb 16 way set associative (system.cpu_cluster.l2 -> size 1048576
 assoc=16)
 * L2 hit access time is 12 cycles (data_latency=12)
 
