@@ -76,9 +76,12 @@ The **minor CPU** utilizes **in-order processor** with **fixed pipeline** and **
 
 Design Philosophy:
 
-* Multithreading: Unsupported; placeholders for future support.
-Data Structures: Fixed-size at construction; BubbleIF for queues; value-passed inter-stage data; limited dynamic allocation (MinorDynInst, ForwardLineData, FetchRequests, LSQRequests).
-* Model Structure: MinorCPU (cpu.hh interfaces) → Pipeline (tick/idling) → Fetch1 (I-cache fetch), Fetch2 (line decomposition), Decode (micro-op), Execute (execution/LSQ).
+* Multithreading: Unsupported; placeholders for future support.  
+* Data Structures: Fixed-size at construction;   
+BubbleIF for queues; 
+value-passed inter-stage data;   
+limited dynamic allocation (MinorDynInst, ForwardLineData, FetchRequests, LSQRequests).    
+* Model Structure: MinorCPU (cpu.hh interfaces) -> Pipeline (tick/idling) -> Fetch1 (I-cache fetch) -> Fetch2 (line decomposition) -> Decode (micro-op) -> Execute (execution/LSQ).
 
 **Key Data Structures:**
 
@@ -311,7 +314,7 @@ In gem5, the simulation frequency is fixed at 1 THz (1×10¹² ticks/second). Cl
 - **Frequency**: Changes per run (1 GHz, 2 GHz, 4 GHz)
 - **Role**: Times all CPU-centric execution events
 
-### The Critical Insight: Clock Domain Separation
+### The Difference in Clock Domains
 
 When `cpu_clk_domain` runs faster than `system_clk_domain` (e.g., 4 GHz CPU vs 1 GHz system clock):
 - The CPU requests data much faster than the memory system can deliver
@@ -326,7 +329,6 @@ When `cpu_clk_domain` runs faster than `system_clk_domain` (e.g., 4 GHz CPU vs 1
 gem5 models **independent clock domains** to reflect realistic hardware:
 
 - Separate clock generators for CPU vs. memory subsystems
-- Different voltage/frequency scaling (DVFS) policies per domain
 - Synchronization logic to bridge clock domains safely
 
 
@@ -464,7 +466,7 @@ The memory bandwidth remains the same whatever the cpu clock is. As a result the
 
 ## 9. Final Conclusions
 
-### Answers to Core Questions
+### Answers to questions
 
 1. **What is being timed at different frequencies?**
    - CPU execution: Times all CPU-centric events using `cpu_clk_domain`
@@ -494,7 +496,7 @@ The memory bandwidth remains the same whatever the cpu clock is. As a result the
 - Solution: wider memory buses, prefetching, better branch prediction
 
 **For Software Optimization:**
-- Higher CPU frequency ≠ always faster (memory-bound workloads plateau)
+- Higher CPU frequency != always faster (memory-bound workloads plateau)
 - Data locality and cache efficiency matter more at high frequencies
 - Profile before optimizing; memory bottleneck might be dominant
 
@@ -650,9 +652,9 @@ Where $MR$ = Miss Rate for each level.
 
 | Larger Cache Line | Advantages | Disadvantages |
 |-------------------|------------|---------------|
-| B ↑ | Better spatial locality | Larger miss penalty |
-| B ↑ | Fewer tags (smaller overhead) | Cache pollution |
-| B ↑ | More efficient DRAM burst | False sharing (multicore) |
+|  | Better spatial locality | Larger miss penalty |
+|  | Fewer tags (smaller overhead) | Cache pollution |
+|  | More efficient DRAM burst | False sharing (multicore) |
 
 ### 2. Optimal Size
 
@@ -762,7 +764,7 @@ Even though we heavily optimized our CPI, The complexity and cost increased dram
 This analysis provides a **qualitative and quantitative framework** for evaluating design choices in memory hierarchy. Key conclusions:
 
 1. **L1 is ~3-5× more expensive per byte** than L2 due to speed-optimized design
-2. **Associativity has sub-linear effect** on miss rate but linear/super-linear effect on cost
+2. **Associativity has sub-linear effect** on miss rate but linear or exponential effect on cost
 3. **Cache line size** affects both tag overhead and spatial locality
 4. **CPU frequency** imposes stricter timing margins on L1
 
