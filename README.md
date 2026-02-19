@@ -76,10 +76,10 @@ The **minor CPU** utilizes **in-order processor** with **fixed pipeline** and **
 
 Design Philosophy:
 
-* Multithreading: Unsupported; placeholders for future support.  
-* Data Structures: Fixed-size at construction;   
-BubbleIF for queues; 
-value-passed inter-stage data;   
+* Multithreading: Unsupported, placeholders for future support.  
+* Data Structures: Fixed-size at construction,   
+BubbleIF for queues, 
+value-passed inter-stage data, 
 limited dynamic allocation (MinorDynInst, ForwardLineData, FetchRequests, LSQRequests).    
 * Model Structure: MinorCPU (cpu.hh interfaces) -> Pipeline (tick/idling) -> Fetch1 (I-cache fetch) -> Fetch2 (line decomposition) -> Decode (micro-op) -> Execute (execution/LSQ).
 
